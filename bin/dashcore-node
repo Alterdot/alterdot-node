@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 
-var dashcore = require('../lib/cli/dashcore');
-dashcore();
+var alterdot = require('../lib/cli/alterdot');
+alterdot();

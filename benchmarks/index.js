@@ -1,15 +1,15 @@
 'use strict';
 
 var benchmark = require('benchmark');
-var dashdRPC = require('@dashevo/dashd-rpc');
+var alterdotdRPC = require('alterdotd-rpc');
 var async = require('async');
 var maxTime = 20;
 
-console.log('Dash Service native interface vs. Dash JSON RPC interface');
+console.log('Alterdot Service native interface vs. Alterdot JSON RPC interface');
 console.log('----------------------------------------------------------------------');
 
-// To run the benchmarks a fully synced Dash Core directory is needed. The RPC comands
-// can be modified to match the settings in dash.conf.
+// To run the benchmarks a fully synced Alterdot directory is needed. The RPC comands
+// can be modified to match the settings in alterdot.conf.
 
 var fixtureData = {
   blockHashes: [
@@ -26,34 +26,34 @@ var fixtureData = {
   ]
 };
 
-var dashd = require('../').services.Dash({
+var alterdotd = require('../').services.Alterdot({
   node: {
-    datadir: process.env.HOME + '/.dash',
+    datadir: process.env.HOME + '/.alterdot',
     network: {
       name: 'testnet'
     }
   }
 });
 
-dashd.on('error', function(err) {
+alterdotd.on('error', function(err) {
   console.error(err.message);
 });
 
-dashd.start(function(err) {
+alterdotd.start(function(err) {
   if (err) {
     throw err;
   }
-  console.log('Dash Core started');
+  console.log('Alterdot started');
 });
 
-dashd.on('ready', function() {
+alterdotd.on('ready', function() {
 
-  console.log('Dash Core ready');
+  console.log('Alterdot ready');
 
-  var client = new dashdRPC({
+  var client = new alterdotdRPC({
     host: 'localhost',
     port: 18332,
-    user: 'dash',
+    user: 'alterdot',
     pass: 'local321'
   });
 
@@ -64,12 +64,12 @@ dashd.on('ready', function() {
       var hashesLength = fixtureData.blockHashes.length;
       var txLength = fixtureData.txHashes.length;
 
-      function dashdGetBlockNative(deffered) {
+      function alterdotdGetBlockNative(deffered) {
         if (c >= hashesLength) {
           c = 0;
         }
         var hash = fixtureData.blockHashes[c];
-        dashd.getBlock(hash, function(err, block) {
+        alterdotd.getBlock(hash, function(err, block) {
           if (err) {
             throw err;
           }
@@ -78,7 +78,7 @@ dashd.on('ready', function() {
         c++;
       }
 
-      function dashdGetBlockJsonRpc(deffered) {
+      function alterdotdGetBlockJsonRpc(deffered) {
         if (c >= hashesLength) {
           c = 0;
         }
@@ -92,12 +92,12 @@ dashd.on('ready', function() {
         c++;
       }
 
-      function dashGetTransactionNative(deffered) {
+      function alterdotGetTransactionNative(deffered) {
         if (c >= txLength) {
           c = 0;
         }
         var hash = fixtureData.txHashes[c];
-        dashd.getTransaction(hash, true, function(err, tx) {
+        alterdotd.getTransaction(hash, true, function(err, tx) {
           if (err) {
             throw err;
           }
@@ -106,7 +106,7 @@ dashd.on('ready', function() {
         c++;
       }
 
-      function dashGetTransactionJsonRpc(deffered) {
+      function alterdotGetTransactionJsonRpc(deffered) {
         if (c >= txLength) {
           c = 0;
         }
@@ -122,22 +122,22 @@ dashd.on('ready', function() {
 
       var suite = new benchmark.Suite();
 
-      suite.add('dashd getblock (native)', dashdGetBlockNative, {
+      suite.add('alterdotd getblock (native)', alterdotdGetBlockNative, {
         defer: true,
         maxTime: maxTime
       });
 
-      suite.add('dashd getblock (json rpc)', dashdGetBlockJsonRpc, {
+      suite.add('alterdotd getblock (json rpc)', alterdotdGetBlockJsonRpc, {
         defer: true,
         maxTime: maxTime
       });
 
-      suite.add('dashd gettransaction (native)', dashGetTransactionNative, {
+      suite.add('alterdotd gettransaction (native)', alterdotGetTransactionNative, {
         defer: true,
         maxTime: maxTime
       });
 
-      suite.add('dashd gettransaction (json rpc)', dashGetTransactionJsonRpc, {
+      suite.add('alterdotd gettransaction (json rpc)', alterdotGetTransactionJsonRpc, {
         defer: true,
         maxTime: maxTime
       });
@@ -158,7 +158,7 @@ dashd.on('ready', function() {
       throw err;
     }
     console.log('Finished');
-    dashd.stop(function(err) {
+    alterdotd.stop(function(err) {
       if (err) {
         console.error('Fail to stop services: ' + err);
         process.exit(1);

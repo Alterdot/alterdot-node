@@ -12,10 +12,10 @@ describe('#defaultBaseConfig', function() {
     info.path.should.equal(cwd);
     info.config.network.should.equal('livenet');
     info.config.port.should.equal(3001);
-    info.config.services.should.deep.equal(['dashd', 'web']);
-    var dashd = info.config.servicesConfig.dashd;
-    dashd.spawn.datadir.should.equal(home + '/.dash');
-    dashd.spawn.exec.should.equal(path.resolve(__dirname, process.env.HOME, './.dash/dashd'));
+    info.config.services.should.deep.equal(['alterdotd', 'web']);
+    var alterdotd = info.config.servicesConfig.alterdotd;
+    alterdotd.spawn.datadir.should.equal(home + '/.alterdot');
+    alterdotd.spawn.exec.should.equal(path.resolve(__dirname, process.env.HOME, './.alterdot/alterdotd'));
   });
   it('be able to specify a network', function() {
     var info = defaultBaseConfig({network: 'testnet'});
@@ -23,6 +23,6 @@ describe('#defaultBaseConfig', function() {
   });
   it('be able to specify a datadir', function() {
     var info = defaultBaseConfig({datadir: './data2', network: 'testnet'});
-    info.config.servicesConfig.dashd.spawn.datadir.should.equal('./data2');
+    info.config.servicesConfig.alterdotd.spawn.datadir.should.equal('./data2');
   });
 });

@@ -2,15 +2,15 @@
 
 var should = require('chai').should();
 var sinon = require('sinon');
-var dashcore = require('@dashevo/dashcore-lib');
-var Networks = dashcore.Networks;
+var alterdot = require('alterdot-lib');
+var Networks = alterdot.Networks;
 var proxyquire = require('proxyquire');
 var util = require('util');
 var BaseService = require('../lib/service');
 var index = require('../lib');
 var log = index.log;
 
-describe('Dashcore Node', function() {
+describe('Alterdot Node', function() {
 
   var baseConfig = {};
 
@@ -425,7 +425,7 @@ describe('Dashcore Node', function() {
 
   describe('#getNetworkName', function() {
     afterEach(function() {
-      dashcore.Networks.disableRegtest();
+      alterdot.Networks.disableRegtest();
     });
     it('it will return the network name for livenet', function() {
       var node = new Node(baseConfig);
