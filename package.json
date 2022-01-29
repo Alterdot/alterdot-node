@@ -2,7 +2,7 @@
   "name": "alterdot-node",
   "description": "Full node with extended capabilities using Alterdot and Alterdot (alterdotd)",
   "author": "alterdot.network",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./index.js",
   "repository": "git://github.com/Alterdot/alterdot-node.git",
   "homepage": "https://github.com/Alterdot/alterdot-node",
