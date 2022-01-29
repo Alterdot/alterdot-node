@@ -785,7 +785,7 @@ describe('Alterdot Service', function() {
         }
       };
       var alterdotd = new AlterdotService(config);
-      alterdotd._getDefaultConf().rpcport.should.equal(9998);
+      alterdotd._getDefaultConf().rpcport.should.equal(31050);
     });
     it('will get default rpc port for testnet', function() {
       var config = {
@@ -798,7 +798,7 @@ describe('Alterdot Service', function() {
         }
       };
       var alterdotd = new AlterdotService(config);
-      alterdotd._getDefaultConf().rpcport.should.equal(19998);
+      alterdotd._getDefaultConf().rpcport.should.equal(31450);
     });
     it('will get default rpc port for regtest', function() {
       alterdot.Networks.enableRegtest();
@@ -812,7 +812,7 @@ describe('Alterdot Service', function() {
         }
       };
       var alterdotd = new AlterdotService(config);
-      alterdotd._getDefaultConf().rpcport.should.equal(19998);
+      alterdotd._getDefaultConf().rpcport.should.equal(31450);
     });
   });
 
