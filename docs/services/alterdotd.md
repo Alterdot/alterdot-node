@@ -271,6 +271,16 @@ The `summary` will have the format (values are in satoshis):
 - `appearances` is the total confirmed transactions
 - `txids` Are sorted in block order with the most recent at the beginning. A maximum of 1000 *(default)* will be returned, the `from` and `to` options can be used to get further values.
 
+## BlockchainDNS
+
+**Domain Resolution**
+
+```js
+// resolves a domain name to its associated content
+node.services.alterdotd.resolveDomain(function(err, info) {
+  //...
+});
+```
 
 ## Events
 The Alterdot Service exposes two events via the Bus, and there are a few events that can be directly registered:
